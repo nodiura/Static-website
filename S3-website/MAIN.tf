@@ -26,8 +26,8 @@ module "cloudfront_s3_website_without_domain" {
 
 variable "tags" {
   default = {
-    owner       = "Gangaraju"
-    application = "sample"
+    owner       = "Nodi_ura"
+    application = "new sample"
   }
 }
 
