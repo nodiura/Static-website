@@ -9,8 +9,9 @@ variable "tags" {
 }
 
 variable "hosted_zone" {
-  default     = null
-  description = "Route53 hosted zone"
+  description = "The hosted zone to use"
+  type        = string
+  default     = "example.com"  # Replace with your actual hosted zone.
 }
 
 variable "acm_certificate_domain" {
@@ -59,12 +60,13 @@ variable "cloudfront_geo_restriction_restriction_type" {
   }
 
 }
-variable "cloudfront_geo_restriction_locations" {
-  default     = []
-  description = "The ISO 3166-1-alpha-2 codes for which you want CloudFront either to distribute your content (whitelist) or not distribute your content (blacklist)."
+ variable "cloudfront_geo_restriction_locations" {
+  description = "A list of ISO 3166-1-alpha-2 codes to restrict geographic access."
+  type        = list(string)
+  # Optional default value
+  # default = ["US"] 
   validation {
-    error_message = "must be a valid ISO 3166-1-alpha-2 code"
-    condition     = length(var.cloudfront_geo_restriction_locations) == 2
+    condition     = length(var.cloudfront_geo_restriction_locations) > 0
+    error_message = "The cloudfront_geo_restriction_locations variable must contain at least one valid ISO 3166-1-alpha-2 code."
   }
-
 }
